@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 2</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f5f9;
+    }
+
+    header {
+      background-color: #0077b6;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+      padding: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+
+    /* Contact Form Styles */
+    form label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    form input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    form button {
+      margin-top: 15px;
+      background-color: #0077b6;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: #023e8a;
+    }
+
+    /* To-Do List Styles */
+    #todoList li {
+      background-color: #e8f0fe;
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #todoList button {
+      background-color: crimson;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      padding: 5px 10px;
+    }
+
+    #todoList button:hover {
+      background-color: darkred;
+    }
+
+    footer {
+      text-align: center;
+      background-color: #0077b6;
+      color: white;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>Task 2 – Intermediate HTML, CSS & JavaScript</header>
+
+  <main>
+    <!-- Contact Form -->
+    <div class="card">
+      <h2>Contact Form</h2>
+      <form onsubmit="return validateForm()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter your name">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Enter your email">
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" placeholder="Enter password">
+
+        <label for="cpassword">Confirm Password:</label>
+        <input type="password" id="cpassword" placeholder="Confirm password">
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <!-- Dynamic To-Do List -->
+    <div class="card">
+      <h2>Dynamic To-Do List</h2>
+      <input type="text" id="taskInput" placeholder="Enter a new task">
+      <button onclick="addTask()">Add Task</button>
+      <ul id="todoList"></ul>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 ApexPlanet Internship | Task 2 
+  </footer>
+
+  <script>
+    // Form Validation
+    function validateForm() {
+      let n = document.getElementById("name").value.trim();
+      let em = document.getElementById("email").value.trim();
+      let ps = document.getElementById("password").value.trim();
+      let cps = document.getElementById("cpassword").value.trim();
+
+      if (n === "") {
+        alert("Name cannot be empty");
+        return false;
+      }
+
+      let atp = em.indexOf("@");
+      let dotp = em.lastIndexOf(".");
+      if (atp < 1 || dotp < atp + 2 || dotp + 2 >= em.length) {
+        alert("Invalid email format");
+        return false;
+      }
+
+      if (ps === "" || cps === "") {
+        alert("Password fields cannot be empty");
+        return false;
+      }
+
+      if (ps !== cps) {
+        alert("Passwords do not match");
+        return false;
+      }
+
+      alert("Form submitted successfully!");
+      return true;
+    }
+
+    // Dynamic To-Do List
+    function addTask() {
+      let input = document.getElementById("taskInput");
+      let task = input.value.trim();
+      if (task === "") {
+        alert("Please enter a task");
+        return;
+      }
+
+      let li = document.createElement("li");
+      li.textContent = task;
+
+      let btn = document.createElement("button");
+      btn.textContent = "Remove";
+      btn.onclick = function() {
+        li.remove();
+      };
+
+      li.appendChild(btn);
+      document.getElementById("todoList").appendChild(li);
+      input.value = "";
+    }
+  </script>
+</body>
+</html>
